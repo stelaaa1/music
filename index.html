@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--css file-->
+    <link rel="stylesheet" href="music.css" />
+</head>
+<body> 
+      <div class="main_div">
+        <div class="music_container">
+          <h2 id="title">Let Me Down</h2>
+          <h3 id="artist">Gravero Mashup</h3>
+          <div class="img_container">
+            <img src="images/image1.jpg" alt=""/>
+          </div>
+          <audio src="music/music1.mp3" ></audio>     
+          <!--controls-->
+            <div class="music_controls">
+              <i class="fa-solid fa-backward" id="prev" title="Previous"></i>
+              <i class="fa-solid fa-play main_button" id="play" title="Play"></i>
+              <i class="fa-solid fa-forward" id="next" title="Next"></i>
+            </div>
+          </div>
+        </div>
+
+<!--js file-->   
+    <script >
+      const music= document.querySelector("audio");
+      const img= document.querySelector("img");
+      
+     const play=document.getElementById("play");
+     const artist=document.getElementById("artist");
+     const title= document.getElementById("title");
+      const prev= document.getElementById("prev");
+     const next=document.getElementById("next");
+
+     const songs =[
+     {
+      name: "music1",
+      title: "Let Me Down",
+      artist: "mashup",
+     },
+     {
+      name: "music2",
+      title: "On My Way",
+      artist: "Alan Walker",
+      
+     },
+     
+     {
+     name: "music3",
+      title: "Itni si baat",
+      artist: "Arijit Singh",
+     }];
+
+     let isPlaying=false;
+
+      //play function
+      const playMusic = () => {
+       isPlaying=true;
+      music.play();
+      play.classList.replace("fa-play","fa-pause");
+      img.classList.add("anime");
+     };
+
+     //pause function
+     const pauseMusic = () => {
+       isPlaying =false;
+      music.pause();
+      play.classList.replace("fa-pause", "fa-play");
+      img.classList.remove("anime");
+     };
+      
+      play.addEventListener('click', () =>{
+      // if(isPlaying)
+       //{
+       // pauseMusic();
+       //}else{
+        //playMusic();
+       //}
+
+       isPlaying ? pauseMusic() : playMusic();
+       });
+    
+       //changing the music data
+      
+      const loadSong =(songs) =>
+      {
+        title.textContent =songs.title;
+        artist.textContent =songs.artist;
+        music.src ="music/" + songs.name + ".mp3";
+        img.src= "images/" + songs.name + ".jpg";
+      };
+      
+      songIndex=0;
+
+      const nextSong = () =>{
+        songIndex= (songIndex + 1) % songs.length;
+        loadSong(songs[songIndex] ) ;
+        playMusic();
+      }
+
+      const prevSong = () => {
+        songIndex = ( songIndex - 1 + songs.length) % songs.length;
+        loadSong(songs[songIndex]);
+        playMusic();
+             };
+      next.addEventListener("click", nextSong);
+      prev.addEventListener("click", prevSong);
+
+    </script>
+</body>
+</html>
