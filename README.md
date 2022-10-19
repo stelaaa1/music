@@ -1,1 +1,1 @@
-# music
+A web-based music application 
